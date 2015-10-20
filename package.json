@@ -1,0 +1,11 @@
+{
+  "name": "routing-app",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies":{
+  	"express":"~4.9.1"
+  },
+  "main": "server.js",
+  "author": "",
+  "license": "ISC"
+}
