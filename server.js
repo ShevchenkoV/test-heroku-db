@@ -22,7 +22,7 @@ app.get('/', function(req, res) {
 
 var usersFilePath = path.join(__dirname, 'file.json');
 
-app.get('/get', function(req, res) {
+app.get('/list', function(req, res) {
 
  fs.readFile("file.json", "utf-8", function(err, data){
     if(err) throw err;
@@ -33,7 +33,7 @@ app.get('/get', function(req, res) {
 
 });
 
-app.post('/post', function(req, res) {
+app.post('/list', function(req, res) {
 	
 	fs.writeFile("file.json",JSON.stringify(req.body), function(err) {
 	    if(err) {

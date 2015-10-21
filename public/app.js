@@ -1,2 +1,3 @@
-//twitterApp is dependent on the myApp.services module
-var app = angular.module('app', []);
+
+angular.module('app', []);
+
