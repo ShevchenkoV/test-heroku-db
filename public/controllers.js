@@ -10,18 +10,18 @@
 
     function MainCtrl($http, DataSrvc, $scope) {
 
-       // var vm = this;
         var version = 0;
         $scope.add = false;
         $scope.toggleView = toggleView;
-        $scope.save = save;
-        $scope.load = load;
+        $scope.save = saveOnServer;
+        $scope.load = loadFromServer;
         $scope.addQuestion = addQuestion;
 
         function toggleView(){
             $scope.add = !$scope.add;
-        }
-        function save() {
+        };
+
+        function saveOnServer() {
             $scope.data.version = versionIncrement($scope.data.version, 2, 0.01);
             DataSrvc.saveNewList($scope.data);
         };
@@ -32,7 +32,7 @@
             return num.toFixed(presicion);
         };
 
-        function load() {
+        function loadFromServer() {
             return DataSrvc.getList()
                 .then(function(data) {
                     data.version = parseFloat(data.version);
@@ -72,33 +72,32 @@
             return $http.get("/list")
                 .then( requestCompleteHandler );
         };
+
         function saveNewList(list){
             return $http.post("/list", list)
                 .then( requestCompleteHandler );
         };
+
         function requestCompleteHandler(response) {
             return response.data;
         };
-
-    }
+    };
 })();
 
 (function(){
 
-    angular.module('app').directive('strongSecret', function() {
+    angular.module('app').directive('unique', function() {
     return {
-
-      // limit usage to argument only
       restrict: 'A',
-
-      // require NgModelController, i.e. require a controller of ngModel directive
       require: 'ngModel',
       link: function(scope, elm, attrs, ctrl) {
+
         ctrl.$validators.unique = function(modelValue, viewValue) {
-        if (ctrl.$isEmpty(modelValue)) {
-          // consider empty models to be valid
-          return true;
-        }
+
+          if (ctrl.$isEmpty(modelValue)) {
+            return true;
+          }
+
           if (viewValue) {
             var match = true;
             angular.forEach(scope.data.questions, function(item) {
@@ -114,7 +113,15 @@
         };
       }
     };
-  });
+  })
+    .directive('qform',function(){
+      return {
+        restrict : 'E',
+        templateUrl : 'tpls/question-form.html'
+      }
+    });
 
 })();
+
+
 

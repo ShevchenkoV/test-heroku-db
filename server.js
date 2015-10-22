@@ -1,4 +1,3 @@
-
 var express = require('express');
 var app = express();
 var path = require('path');
@@ -24,11 +23,9 @@ var usersFilePath = path.join(__dirname, 'file.json');
 
 app.get('/list', function(req, res) {
 
- fs.readFile("file.json", "utf-8", function(err, data){
-    if(err) throw err;
      
-     res.send(data);
-  });
+     res.send("http://semantical.s3-eu-west-1.amazonaws.com/file.json");
+
 
 
 });
