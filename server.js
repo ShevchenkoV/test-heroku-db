@@ -44,5 +44,17 @@ app.post('/list', function(req, res) {
 
 });
 
+/*
+	var http = require('http'),
+    request = require('request');
+
+http.createServer(function(req, res) {
+    res.setHeader("content-disposition", "attachment; filename=file.json");
+    request('http://semantical.s3-eu-west-1.amazonaws.com/file.json').pipe(res);
+}).listen(8080);
+
+*/
+
+
 app.listen(8080);
 console.log('port 8080.');
