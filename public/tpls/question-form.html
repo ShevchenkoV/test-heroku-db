@@ -3,26 +3,29 @@
                 <label>ID:</label>
                 <input type="num" 
                     class="form-control" 
-                    name="id" ng-model="question.id" unique  required>
+                    name="id" ng-model="question.id"
+                    placeholder="Unique ID" unique  required>
             </div>
             <div class="form-group">
                 <label>Word</label>
                 <input type="text" 
-                    class="form-control" 
-                    ng-model=" question.word">
+                    class="form-control"
+                    placeholder="Correct word" 
+                    ng-model="question.word" required>
             </div>
             <div class="form-group">
                 <label>Choices</label>
                 <input type="text" 
                     class="form-control" 
                     ng-model="question.choices"
-                    placeholder='Enumerate choices separated by "," '>
+                    placeholder='Enumerate choices separated by "," ' required>
             </div>
             <div class="form-group">
                 <label>Text</label>
                 <textarea class="form-control" 
                     ng-model="question.text"
-                    rows="2"></textarea>
+                    placeholder="Description..."
+                    rows="2" required></textarea>
             </div>
             <div class="well text-center">
                 <button type="submit" 
@@ -30,6 +33,6 @@
                     class="btn btn-primary">Save Question</button>
 
                 <button type="button"  
-                    class="btn btn-default">Cancel</button>
+                    class="btn btn-default" ng-click="cancel(form)">Cancel</button>
             </div>
           </form>

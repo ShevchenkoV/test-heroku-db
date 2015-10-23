@@ -3,7 +3,7 @@ var app = express();
 var path = require('path');
 var fs = require('fs');
 var bodyParser = require('body-parser'); 
-
+var request = require('request');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -22,39 +22,30 @@ app.get('/', function(req, res) {
 var usersFilePath = path.join(__dirname, 'file.json');
 
 app.get('/list', function(req, res) {
-
-     
-     res.send("http://semantical.s3-eu-west-1.amazonaws.com/file.json");
-
-
-
+	request('http://semantical.s3-eu-west-1.amazonaws.com/file.json', function (error, response, body) {
+	  if (error) {
+	  	res.send(error);
+	  };
+	  res.send(body);
+	})
+    
 });
 
 app.post('/list', function(req, res) {
-	
-	fs.writeFile("file.json",JSON.stringify(req.body), function(err) {
-	    if(err) {
-	        return console.log(err);
-	    }
-	    console.log("The file was saved!");
-    	res.send("ok");
-	});
 
-
+	request({
+		url:'http://semantical.s3-eu-west-1.amazonaws.com/file.json',
+		method:'PUT',
+		json : true,
+		body : req.body}
+		, function (error, response, body) {
+			  if(error){
+			  	res.send(error);
+			  }
+			 res.send(response);
+		})
 
 });
-
-/*
-	var http = require('http'),
-    request = require('request');
-
-http.createServer(function(req, res) {
-    res.setHeader("content-disposition", "attachment; filename=file.json");
-    request('http://semantical.s3-eu-west-1.amazonaws.com/file.json').pipe(res);
-}).listen(8080);
-
-*/
-
 
 app.listen(8080);
 console.log('port 8080.');

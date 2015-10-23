@@ -16,6 +16,8 @@
         $scope.save = saveOnServer;
         $scope.load = loadFromServer;
         $scope.addQuestion = addQuestion;
+        $scope.cancel = resetForm;
+        $scope.remove = deleteQuestion;
 
         function toggleView(){
             $scope.add = !$scope.add;
@@ -30,6 +32,10 @@
             var num = parseFloat(value) || 0.0;
             num += step;
             return num.toFixed(presicion);
+        };
+        
+        function deleteQuestion(question){
+            $scope.data.questions.splice($scope.data.questions.indexOf(question),1);
         };
 
         function loadFromServer() {
@@ -47,11 +53,23 @@
           if(isValid){
             $scope.question.choices = $scope.question.choices.split(',');
             $scope.data.questions.push($scope.question);
-            $scope.question = {};
-            $scope.toggleView();
+            hideQuestionForm();
           }
         };
-    }
+
+        function resetForm(form){
+          if (form) {
+            form.$setPristine();
+            form.$setUntouched();
+          }
+          hideQuestionForm();
+        };
+
+        function hideQuestionForm(){
+          $scope.question = {};
+          toggleView();
+        };
+    };
 
 })();
 
@@ -93,23 +111,20 @@
       link: function(scope, elm, attrs, ctrl) {
 
         ctrl.$validators.unique = function(modelValue, viewValue) {
-
+        
+          var match = true;
+        
           if (ctrl.$isEmpty(modelValue)) {
             return true;
           }
-
           if (viewValue) {
-            var match = true;
             angular.forEach(scope.data.questions, function(item) {
-
                 if (viewValue == parseInt(item.id)){
                     match = false;
-                    return;
                 }
             });
-            return match;
           }
-          return true;
+          return match;
         };
       }
     };

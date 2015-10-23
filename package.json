@@ -2,8 +2,9 @@
   "name": "routing-app",
   "version": "1.0.0",
   "description": "",
-  "dependencies":{
-  	"express":"~4.9.1"
+  "dependencies": {
+    "express": "~4.9.1",
+    "express-http-proxy": "^0.6.0"
   },
   "main": "server.js",
   "author": "",

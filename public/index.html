@@ -22,6 +22,10 @@
             <button type="button" 
                 class="btn btn-default" 
                 ng-click="toggleView()">Add Question</button>
+            <div class="form-group">
+                <label>Find by id</label>
+                <input type="number" class="form-control" ng-model="find">
+            </div>    
         </div>
         
         <div class="well" ng-show="add">
@@ -46,8 +50,7 @@
                 <textarea class="form-control" ng-model="question.text" rows="2"></textarea>
             </div>
             <div class="row text-center">
-                <button class="btn btn-primary">Save</button>
-                <button class="btn btn-primary">Delete</button>
+                <button class="btn btn-primary" ng-click="remove(question)">Delete</button>
             </div>
         </div>
 
