@@ -19,20 +19,28 @@
             <button type="button" class="btn btn-default" ng-click=" save()">Send To Server</button>
         </div>
         <div class="well" ng-hide="add">
-            <button type="button" 
-                class="btn btn-default" 
-                ng-click="toggleView()">Add Question</button>
-            <div class="form-group">
-                <label>Find by id</label>
-                <input type="number" class="form-control" ng-model="find">
-            </div>    
+          <div class="row">
+            <div class="col-md-6 col-xs-6">
+                         <button type="button"
+                            class="btn btn-default"
+                            ng-click="toggleView()">Add Question</button>
+            </div>
+            <div class="col-md-6 col-xs-6">
+
+            </div>
+          </div>
+          <div class="form-group">
+              <label>Any</label> <input type="text" class="form-control" ng-model="search.$"> <br>
+              <label>By ID</label> <input type="text" class="form-control" ng-model="search.id"><br>
+              <label>By word</label> <input type="text" class="form-control" ng-model="search.word"><br>
+            </div>
         </div>
-        
+
         <div class="well" ng-show="add">
             <qform></qform>
          </div>
 
-        <div class="well" ng-hide="add" ng-repeat="question in  data.questions | orderBy : '-id'">
+        <div class="well" ng-hide="add" ng-repeat="question in  data.questions | orderBy : '-id' | filter : search">
             <div class="form-group">
                 <label>ID:</label>
                 <input type="num" class="form-control" ng-model="question.id">

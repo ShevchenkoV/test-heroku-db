@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var fs = require('fs');
-var bodyParser = require('body-parser'); 
+var bodyParser = require('body-parser');
 var request = require('request');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -13,6 +13,7 @@ app.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
 	next();
 });
+
 
 app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res) {
@@ -28,11 +29,10 @@ app.get('/list', function(req, res) {
 	  };
 	  res.send(body);
 	})
-    
+
 });
 
 app.post('/list', function(req, res) {
-
 	request({
 		url:'http://semantical.s3-eu-west-1.amazonaws.com/file.json',
 		method:'PUT',
@@ -43,7 +43,7 @@ app.post('/list', function(req, res) {
 			  	res.send(error);
 			  }
 			 res.send(response);
-		})
+		});
 
 });
 

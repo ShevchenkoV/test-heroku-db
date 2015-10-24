@@ -19,11 +19,15 @@
         $scope.cancel = resetForm;
         $scope.remove = deleteQuestion;
 
+        $scope.filter = "$";
+        $scope.search = {id:'', word:'', $:''};
+
         function toggleView(){
             $scope.add = !$scope.add;
         };
 
         function saveOnServer() {
+          console.log($scope.data);
             $scope.data.version = versionIncrement($scope.data.version, 2, 0.01);
             DataSrvc.saveNewList($scope.data);
         };
@@ -33,7 +37,7 @@
             num += step;
             return num.toFixed(presicion);
         };
-        
+
         function deleteQuestion(question){
             $scope.data.questions.splice($scope.data.questions.indexOf(question),1);
         };
@@ -92,6 +96,7 @@
         };
 
         function saveNewList(list){
+          console.log(list);
             return $http.post("/list", list)
                 .then( requestCompleteHandler );
         };
@@ -111,9 +116,9 @@
       link: function(scope, elm, attrs, ctrl) {
 
         ctrl.$validators.unique = function(modelValue, viewValue) {
-        
+
           var match = true;
-        
+
           if (ctrl.$isEmpty(modelValue)) {
             return true;
           }
@@ -137,6 +142,3 @@
     });
 
 })();
-
-
-
